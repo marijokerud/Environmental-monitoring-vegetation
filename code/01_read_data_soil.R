@@ -17,9 +17,13 @@ soil <- soil.raw %>%
   select(kode, site, year, pH, P, K, Mg, Na_AL, Glødetap, TOC, N_Kjeldahl, C_N) %>% 
   mutate(Year = year) %>% 
   mutate(Year = recode(Year, "1995" = "0", "1998" = "1", "2003" = "2", "2008" = "3", "2013" = "4", "2018" = "5", "2023" = "6")) %>% 
-  mutate(Year = as.factor(Year))
+  mutate(Year = as.factor(Year)) %>% 
+  mutate(P = as.numeric(gsub(pattern="<", replacement="", P))) %>% 
+  mutate(K = as.numeric(gsub(pattern="<", replacement="", K))) %>% 
+  mutate(Mg = as.numeric(gsub(pattern="<", replacement="", Mg))) %>% 
+  mutate(Na_AL = as.numeric(gsub(pattern="<", replacement="", Na_AL)))
   
-
+soil[] <- lapply(soil, gsub, pattern="<", replacement="")
 
 
 datLM<- dat %>% 
