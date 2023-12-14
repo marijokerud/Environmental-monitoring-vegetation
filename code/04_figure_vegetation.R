@@ -1,6 +1,7 @@
 library(ggplot2)
 
 ### POLYNOMIAL REGRESSION PLOT
+regression_plot <-
 ggplot(site.scores, aes(x= year3, y=NMDS1)) +
   geom_point(shape=1, color= "black", size=2.2) +
   geom_smooth(method='lm', formula= y~x, se=TRUE, col="black", fill="#008C95", lwd=1.2) +
@@ -18,6 +19,9 @@ ggplot(site.scores, aes(x= year3, y=NMDS1)) +
         panel.grid.major.y=element_blank()) 
 
 #save as 575x650
+png(filename = "output/regression_plot_vegetation2.png", width = 900, height = 1017, units = "px", res = 200)   # or tiff("plot.tiff")
+plot(regression_plot)
+dev.off()
 
 ### NMDS PLOT
 #Make polygon values
@@ -54,4 +58,8 @@ artssammensetning <-
         panel.grid.minor.y=element_blank(),                           #Hide all the horizontal gridlines
         panel.grid.major.y=element_blank())
 
-#save as 800x650
+#save as 800x650 or 1240x1090
+
+png(filename = "output/artssammensetning2.png", width = 1240, height = 1090, units = "px", res = 200)   # or tiff("plot.tiff")
+plot(artssammensetning)
+dev.off()
