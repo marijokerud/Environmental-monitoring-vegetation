@@ -52,8 +52,21 @@ species.mat<- speciesdata2 %>%
 species.mat<- matrify(species.mat)
 species.matrix <- species.mat 
 
+### Find number of species in functional groups across years
+abundance.data2 <- speciesdata %>% 
+  left_join(func.type, by="species") %>% 
+  group_by(year) %>% 
+  count(func_type2) %>% 
+  spread(key = year, value = n)
 
+abundance.data3 <- speciesdata %>% 
+  left_join(func.type, by="species") %>% 
+  group_by(year) %>% 
+  count(func_type3) %>% 
+  spread(key = year, value = n)
 
+write.xlsx(abundance.data2, file = "output/abundance_data2.xlsx", col.names = TRUE, row.names = TRUE)
+write.xlsx(abundance.data3, file = "output/abundance_data3.xlsx", col.names = TRUE, row.names = TRUE) 
 
 # Check if something is strange with blank space
 #mutate(species2 = gsub("\\s+", "_", perl=TRUE, species)) %>% 
