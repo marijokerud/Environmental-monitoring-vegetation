@@ -1,12 +1,23 @@
 library(lme4)
 
-site.scores <- site.scores %>% 
-  mutate()
-
-model <- lm(NMDS1~ year + I(sqrt(year)),  
+model1 <- lm(NMDS1~ year3 + I(sqrt(year3)),  
             data = site.scores)
 
-summary(model)
+model2 <- lm(NMDS2~ year3 + I(sqrt(year3)),  
+            data = site.scores)
+
+summary(model1)
+summary(model2)
+
+model3 <- lm(NMDS1~ year3,  
+             data = site.scores)
+
+model4 <- lm(NMDS2~ year3,  
+             data = site.scores)
+
+summary(model3)
+summary(model4)
+AIC(model1, model2, model3, model4)
 
 # Plot the residual vs fitted values
 plot(model, which = 1)
